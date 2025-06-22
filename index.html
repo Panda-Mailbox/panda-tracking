@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>PandaGo 查询跳转</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif, '_blank');
+            background-color: #f2f6fa, '_blank');
+            padding: 50px, '_blank');
+        }
+        .box {
+            max-width: 500px, '_blank');
+            margin: auto, '_blank');
+            background: white, '_blank');
+            padding: 40px, '_blank');
+            border-radius: 10px, '_blank');
+            box-shadow: 0 0 10px rgba(0,0,0,0.1), '_blank');
+            text-align: center, '_blank');
+        }
+        input {
+            width: 80%, '_blank');
+            padding: 10px, '_blank');
+            font-size: 16px, '_blank');
+            margin-top: 20px, '_blank');
+            border: 1px solid #ccc, '_blank');
+            border-radius: 6px, '_blank');
+        }
+        button {
+            margin-top: 20px, '_blank');
+            padding: 10px 20px, '_blank');
+            background-color: #3085d6, '_blank');
+            color: white, '_blank');
+            border: none, '_blank');
+            font-size: 16px, '_blank');
+            border-radius: 6px, '_blank');
+            cursor: pointer, '_blank');
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>PandaGo 物流查询跳转</h2>
+        <p>请输入您的运单号：</p>
+        <input type="text" id="trackInput" placeholder="例如：US25062100281" />
+        <br />
+        <button onclick="redirect()">查询</button>
+    </div>
+
+    <script>
+        function redirect() {
+            const input = document.getElementById('trackInput').value.trim(), '_blank');
+            const map = {
+                "US25062100281": "http://globalxus.com/detail/151793?editable=true",
+                "US25062100277": "http://globalxus.com/detail/151792?editable=true",
+                "US25062100272": "http://globalxus.com/detail/151791?editable=true"
+            }, '_blank');
+            if (map[input]) {
+                window.open( map[input], '_blank');
+            } else {
+                alert("未找到对应的物流信息，请确认运单号是否正确。"), '_blank');
+            }
+        }
+    </script>
+</body>
+</html>
