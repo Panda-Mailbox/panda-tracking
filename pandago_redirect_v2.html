@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>PandaGo 查询跳转</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .box {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        input {
+            padding: 12px;
+            width: 80%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 25px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #3085d6;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>PandaGo 物流查询</h2>
+        <p>请输入您的运单号：</p>
+        <input type="text" id="trackInput" placeholder="例如：US25062100281" />
+        <br />
+        <button onclick="redirect()">查询</button>
+    </div>
+
+    <script>
+        function redirect() {
+            const input = document.getElementById('trackInput').value.trim();
+            const map = {
+                "US25062100281": "http://globalxus.com/detail/151793?editable=true",
+                "US25062100277": "http://globalxus.com/detail/151792?editable=true",
+                "US25062100272": "http://globalxus.com/detail/151791?editable=true"
+            };
+            if (map[input]) {
+                window.location.href = map[input];
+            } else {
+                alert("未找到对应的物流链接，请核对运单号。");
+            }
+        }
+    </script>
+</body>
+</html>
