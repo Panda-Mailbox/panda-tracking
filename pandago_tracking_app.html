@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PandaGo 物流查询</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #3085d6;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .logistics {
+      margin-top: 20px;
+      text-align: left;
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 6px;
+      font-size: 14px;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>PandaGo 物流查询</h2>
+    <input type="text" id="trackingNumber" placeholder="请输入运单号，例如：US25062100281" />
+    <button onclick="fetchTracking()">查询</button>
+    <div id="result" class="logistics"></div>
+  </div>
+
+  <script>
+    async function fetchTracking() {
+      const input = document.getElementById("trackingNumber").value.trim();
+      const resultDiv = document.getElementById("result");
+
+      const idMap = {
+        "US25062100281": "151793",
+        "US25062100277": "151792",
+        "US25062100272": "151791"
+      };
+
+      if (!idMap[input]) {
+        resultDiv.innerText = "未找到该运单号，请检查输入是否正确。";
+        return;
+      }
+
+      resultDiv.innerText = "查询中，请稍候...";
+      try {
+        const res = await fetch(`https://pandagotrack.vercel.app/api/track?id=${idMap[input]}`);
+        const data = await res.text();
+        resultDiv.innerText = data;
+      } catch (error) {
+        resultDiv.innerText = "查询失败，请稍后重试。";
+      }
+    }
+  </script>
+</body>
+</html>
